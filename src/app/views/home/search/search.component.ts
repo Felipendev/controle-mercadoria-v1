@@ -1,3 +1,5 @@
+import { ClienteService } from 'src/app/service/cliente.service';
+import { Cliente } from 'src/app/model/cliente.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  clientes$!: Cliente[];
+  clienteSelecionado!: Cliente;
+
+  constructor(private clienteService: ClienteService) { }
 
   ngOnInit(): void {
+    this.clienteService.getClientes().subscribe
+      (data => this.clientes$ = data);
   }
 
 }

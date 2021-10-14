@@ -1,15 +1,28 @@
-<p-tabView>
-    <p-tabPanel header="Produtos" >
-        <ng-template pTemplate = "header">
-            <i class="pi pi-user"></i>
-            <span>Header II</span>
+
+<p-tabView class="container" styleClass="tabview-custom">
+    <p-tabPanel header="Produtos">
+        <ng-template pTemplate = "content"  >
         </ng-template>
-       Content 1
+        <app-cliente-list></app-cliente-list>
     </p-tabPanel>
-    <p-tabPanel header="Busca">
-        Content 2
+    <p-tabPanel header="Adicionar">
+        <ng-template pTemplate ="content" class="p-field p-col-12">
+        </ng-template>
+        <app-cliente-form></app-cliente-form>
     </p-tabPanel>
-    <p-tabPanel header="Header 3">
-        Content 3
+    <p-tabPanel header="Editar" >
+        <ng-template pTemplate ="content" >
+        </ng-template>
+        <app-cliente-edit></app-cliente-edit>
+    </p-tabPanel>
+    <p-tabPanel header="Buscar">
+        <ng-template pTemplate = "content">
+        </ng-template>
+        <app-search></app-search>
+    </p-tabPanel>
+    <p-tabPanel header="Configurações"  leftIcon="pi pi-cog" class="d-flex align-content-end">
+        <ng-template pTemplate = "Header">
+        </ng-template>
+        <app-menu></app-menu>
     </p-tabPanel>
 </p-tabView>

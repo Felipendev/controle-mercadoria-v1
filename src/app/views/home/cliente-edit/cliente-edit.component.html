@@ -1,0 +1,30 @@
+<form class="p-fluid" (ngSubmit)="criaCliente()" novalidate [formGroup]="form">
+    <div class="grupo1">
+        <label for="firstname1">Nome</label>
+        <input id="firstname1" type="text" pInputText>
+    </div>
+    <div class="grupo1">
+        <label for="lastname1">Sobrenome</label>
+        <input id="lastname1" type="text" pInputText>
+    </div>
+    <div class="grupo">
+        <label for="inputnumber">Código</label>
+        <p-inputNumber inputId="inputnumber" [(ngModel)]="value3"></p-inputNumber>
+    </div>
+    <div class="grupo">
+        <label for="inputmask">Data Recebimento</label>
+        <p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value4"></p-inputMask>
+    </div>
+    <div class="grupo">
+        <label for="inputmask">Contato</label>
+        <p-inputMask inputId="inputnumber" mask="(99) 99999-9999" [(ngModel)]="value5"></p-inputMask>
+    </div>
+    <div class="grupo">
+        <label for="inputnumber">Status</label>
+        <p-dropdown [options]="status" [(ngModel)]="status" optionLabel="name"></p-dropdown>
+    </div>
+    <button type="submit" class="btn btn-outline-primary mt-2 mr-2">Atualizar</button>
+    <div class="buttons ">
+        <button type="button" class="btn btn-outline-warning mt-2">Limpar</button>
+    </div>
+</form>

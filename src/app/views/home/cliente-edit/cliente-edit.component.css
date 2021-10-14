@@ -11,7 +11,7 @@
     display: inline-block;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1180px) {
     .grupo1, .grupo {
       display: block;
       width: 100%;

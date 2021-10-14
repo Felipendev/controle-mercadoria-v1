@@ -1,1 +1,25 @@
-<p>cliente-form works!</p>
+<form class="p-fluid form-group" #usuarioForm="ngForm" (ngSubmit)="criaCliente(usuarioForm)" novalidate>
+        <div class="grupo1 form-group">
+            <label for="firstname1">Nome</label>
+            <input class="form-group" id="firstname1" name="nome" ngModel type="text" pInputText> 
+        </div>
+        <div class="grupo1 form-group">
+            <label for="lastname1">Sobrenome</label>
+            <input class="form-group" id="lastname1" name="sobrenome" ngModel type="text" pInputText> 
+        </div>
+    <div class="grupo form-group">        
+        <label for="inputnumber">Código</label>  
+        <p-inputNumber  class="form-group" inputId="inputnumber" name="codigo" ngModel></p-inputNumber>
+    </div>
+    <div class="grupo form-group">       
+        <label for="inputmask">Data Recebimento</label>
+        <p-inputMask class="form-group" inputId="inputmask" name="dataRecebimento" mask="99/99/9999" ngModel></p-inputMask>
+    </div>
+    <div class="grupo form-group">       
+        <label for="inputmask">Contato</label>
+        <p-inputMask class="form-group" inputId="inputnumber" name="contato" mask="(99) 99999-9999" ngModel></p-inputMask>
+    </div>
+    <button type="submit" class="btn btn-outline-primary m-2">Adicionar</button>
+    <button type="button" class="btn btn-outline-warning m-2">Limpar</button>
+</form>
+
