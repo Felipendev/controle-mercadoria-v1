@@ -5,7 +5,7 @@ export interface Cliente{
     sobrenome: string;
     codigo: number;
     dataRecebimento: Date;
-    dataEntrega: Date;
+    dataDeEntrega: Date;
     contato: number;
     statusProduto: StatusProduto;
 }
