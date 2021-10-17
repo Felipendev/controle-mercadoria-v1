@@ -1,3 +1,4 @@
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,8 +10,7 @@ import { AppComponent } from './app.component';
 import { HomeModule } from './views/home/home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './views/login/login.component';
-
-
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,8 +24,9 @@ import { LoginComponent } from './views/login/login.component';
     HomeModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserAnimationsModule
-    
+    BrowserAnimationsModule,
+    ModalModule.forRoot(),
+    ToastModule,    
   ],
   providers: [],
   bootstrap: [AppComponent]

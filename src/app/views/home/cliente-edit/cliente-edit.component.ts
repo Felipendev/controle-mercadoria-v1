@@ -1,9 +1,13 @@
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { StatusProduto } from 'src/app/model/status-produto.enum';
 import { ClienteService } from 'src/app/service/cliente.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { empty, Subject, Observable } from 'rxjs';
 import { Cliente } from 'src/app/model/cliente.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import * as moment from 'moment';
 
 interface Status {
   name: string
@@ -14,7 +18,8 @@ interface Status {
 @Component({
   selector: 'app-cliente-edit',
   templateUrl: './cliente-edit.component.html',
-  styleUrls: ['./cliente-edit.component.css']
+  styleUrls: ['./cliente-edit.component.css'],
+  providers: [ConfirmationService, MessageService]
 }) 
 export class ClienteEditComponent implements OnInit {
 
@@ -22,18 +27,18 @@ export class ClienteEditComponent implements OnInit {
   searchValue!: string;
   form!: FormGroup;
   submitted = false;
-  private fb!: FormBuilder;
   error$ = new Subject<boolean>();
 
-  clientes$!: Cliente[];
-  clienteSelecionado!: Cliente;
-
+  clientes$!: Observable<Cliente[]>;
   status!: Status[];
-
   selectedStatus!: Status;
-  
 
-  constructor(private clienteService: ClienteService) { 
+  constructor(
+    private fb: FormBuilder,
+    private service: ClienteService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private messageService: MessageService) { 
     this.status = [
       {name: 'RECEBIDO' },
       {name: 'ENTREGUE'},
@@ -42,41 +47,95 @@ export class ClienteEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this.clienteService.getClientes().subscribe
-      (data => this.clientes$ = data);
 
+    this.route.params
+    .pipe(
+      map((params: any) => params['id']),
+      switchMap(id => this.service.loadById(id))
+      ).subscribe(cliente => this.updateForm(cliente));
+    
+    const cliente = this.route.snapshot.data['cliente'];
+
+    this.form = this.fb.group({
+      id: [cliente.id],
+      nome: [cliente.nome],
+      sobrenome: [cliente.sobrenome],
+      codigo: [cliente.codigo],
+      dataRecebimento: [cliente.dataRecebimento],
+      dataDeEntrega: [cliente.dataDeEntrega],
+      contato: [cliente.contato],
+      statusProduto: [cliente.statusProduto]
+    });
+    this.onRefresh();
   }
 
-  criaCliente() {
-    
+  updateForm(cliente: Cliente) {
+    this.form.patchValue({
+      id: cliente.id,
+      nome: cliente.nome,
+      sobrenome: cliente.sobrenome,
+      contato: cliente.contato,
+      codigo: cliente.codigo,
+      dataRecebimento: cliente.dataRecebimento,
+      dataDeEntrega: cliente.dataDeEntrega,
+      statusProduto: cliente.statusProduto
+    })
   }
 
-    value1: any;
+  validarObrigatoriedade(input: FormControl) {
+    return (input.value ? null : { obrigatoriedade: true });
+  }
 
-    value2: any;
+  editaCliente(){
+    this.submitted = true;
+    let dataRecebimento: moment.Moment = moment.utc(this.form.value.dataRecebimento).local();
+    this.form.value.dataRecebimento = dataRecebimento.format("YYYY-MM-DD");
+    let dataDeEntrega: moment.Moment = moment.utc(this.form.value.dataDeEntrega).local();
+    this.form.value.dataDeEntrega = dataDeEntrega.format("YYYY-MM-DD");
+    if(this.form.valid) {
+      console.log('submit');
+      console.log(this.form.value)
+      if(this.form.value.id) {
+        this.service.update(this.form.value).subscribe(
+          success => {
+            this.messageService.add({severity:'success', summary:'Tudo certo!', detail:'Produto atualizado com sucesso!'}),
+            this.paginaInicial();
+          },
+          error => this.messageService.add({severity:'error', summary:'Rejected', detail:'Error ao atualizar produto, tente novamente!'}),
+          () => console.log('update completo')
+        );
+      }
+    }
+  }
 
-    value3: any;
+  onRefresh() {
+    this.clientes$ = this.service.getClientes()
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        this.error$.next(true);
+        this.handleError()
+        return empty();
+      })
+    );
+  }
 
-    value4: any;
+  hasError(field: string) {
+    return this.form.get(field)?.errors;
+  }
 
-    value5: any;
+  handleError() {
+    this.messageService.add({severity:'error', summary:'Rejected', detail:'Erro ao carregar produtos. Tente novamente mais tarde'});
 
-    value6: any;
+    // this.bsModalRef = this.modalService.show(AlertModalComponent);
+    // this.bsModalRef.content.type = 'danger';
+    // this.bsModalRef.content.message = 'danger';
+  }
 
-    value7: any;
+  paginaInicial(){
+    this.router.navigate(['/produtos'])
+  }
 
-    value8: any;
-    
-    value9: any;
-
-    value10: any;
-
-    value11: any;
-
-    valueIconLeft: any;
-
-    valueIconRight: any;
 
 
 }

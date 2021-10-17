@@ -1,25 +1,98 @@
-<form class="p-fluid form-group" #usuarioForm="ngForm" (ngSubmit)="criaCliente(usuarioForm)" novalidate>
-        <div class="grupo1 form-group">
-            <label for="firstname1">Nome</label>
-            <input class="form-group" id="firstname1" name="nome" ngModel type="text" pInputText> 
-        </div>
-        <div class="grupo1 form-group">
-            <label for="lastname1">Sobrenome</label>
-            <input class="form-group" id="lastname1" name="sobrenome" ngModel type="text" pInputText> 
-        </div>
+<form (ngSubmit)="criaCliente()" class="p-fluid form-group" novalidate [formGroup]="form">
+    
+    <div class="grupo1 form-group">
+        <label for="nome">Nome</label>
+        <input 
+            class="form-control" name="nome" formControlName="nome" type="text" required #nome
+            [ngClass]="{'is-invalid': submitted && hasError('nome')}"
+        >
+        <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['required']">
+            O nome precisa ser preenchido
+          </small>
+          <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['minlength']">
+            O nome precisa ter no mínino {{ hasError('nome')!['minlength'].requiredLength }} caracteres.
+          </small>
+          <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['maxlength']">
+            O nome deve ter no máximo {{ hasError('nome')!['maxlength'].requiredLength }} caracteres.
+          </small> 
+    </div>
+
+    <div class="grupo1 form-group">
+        <label for="sobrenome">Sobrenome</label>
+        <input 
+            class="form-control" name="sobrenome" ngModel type="text"  formControlName="sobrenome" required
+            [ngClass]="{'is-invalid': submitted && hasError('sobrenome')}"
+        > 
+        <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['required']">
+            O sobrenome precisa ser preenchido
+          </small>
+          <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['minlength']">
+            O sobrenome precisa ter no mínino {{ hasError('sobrenome')!['minlength'].requiredLength }} caracteres.
+          </small>
+          <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['maxlength']">
+            O sobrenome deve ter no máximo {{ hasError('sobrenome')!['maxlength'].requiredLength }} caracteres.
+          </small>
+    </div>
+    
     <div class="grupo form-group">        
-        <label for="inputnumber">Código</label>  
-        <p-inputNumber  class="form-group" inputId="inputnumber" name="codigo" ngModel></p-inputNumber>
+        <label for="codigo">Código</label>  
+        <input 
+            class="form-control" type="text" 
+            formControlName="codigo" name="codigo"
+            placeholder="0000" required maxlength="5" 
+            [ngClass]="{'is-invalid': submitted && hasError('codigo')}"
+        >
+      <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['required']">
+        O codigo precisa ser preenchido
+      </small>
+      <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['minlength']">
+        O codigo precisa ter no mínino {{ hasError('codigo')!['minlength'].requiredLength }} caracteres.
+      </small>
+      <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['maxlength']">
+        O codigo deve ter no máximo {{ hasError('codigo')!['maxlength'].requiredLength }} caracteres.
+      </small>
     </div>
+
     <div class="grupo form-group">       
-        <label for="inputmask">Data Recebimento</label>
-        <p-inputMask class="form-group" inputId="inputmask" name="dataRecebimento" mask="99/99/9999" ngModel></p-inputMask>
+      <label for="dataRecebimento">Data:</label>
+      <input class="form-control" type="date"
+        formControlName="dataRecebimento"  name="dataRecebimento" placeholder="00/00/0000" #dataRecebimento
+        required [ngClass]="{'is-invalid': submitted && hasError('dataRecebimento')}">
+        <small class="invalid-feedback" *ngIf="hasError('dataRecebimento') && hasError('dataRecebimento')!['required']">
+              A data precisa ser preenchida
+        </small>
     </div>
+
     <div class="grupo form-group">       
-        <label for="inputmask">Contato</label>
-        <p-inputMask class="form-group" inputId="inputnumber" name="contato" mask="(99) 99999-9999" ngModel></p-inputMask>
+        <label for="contato">Contato</label>
+        <input class="form-control form-control"  type="tel" formControlName="contato" name="contato"
+              placeholder="(00) 00000-0000" required [ngClass]="{'is-invalid': submitted && hasError('contato')}"
+              mask="(00) 00000-0000">
+        <small class="invalid-feedback" *ngIf="hasError('contato') && hasError('contato')!['required']">
+            O contato precisa ser preenchido
+          </small>
+          <small class="invalid-feedback" *ngIf="hasError('contato') && hasError('contato')!['minlength']">
+            O contato precisa ter no mínino {{ hasError('contato')!['minlength'].requiredLength }} caracteres.
+          </small>
     </div>
+    <div class="input-group mt-3">
+      <div class="input-group-prepend" formControlName="statusProduto" name="statusProduto">
+        <label class="input-group-text" for="inputGroupSelect01">Status</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option selected>RECEBIDO</option>
+        <option value="2">ENTREGUE</option>
+        <option value="3">DELETADO</option>
+      </select>
+    </div>
+
     <button type="submit" class="btn btn-outline-primary m-2">Adicionar</button>
-    <button type="button" class="btn btn-outline-warning m-2">Limpar</button>
+    <button type="button" class="btn btn-outline-warning m-2"  (click)="cancelar()">Limpar</button>
 </form>
+
+<p-toast [style]="{marginTop: '0px'}"></p-toast>
+
+
+
+
 

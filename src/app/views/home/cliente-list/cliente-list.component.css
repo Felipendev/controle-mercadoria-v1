@@ -21,3 +21,15 @@
     font-size: 12px;
     letter-spacing: .3px;
 }
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.btns-header {
+    justify-content: flex-end;
+
+}

@@ -23,14 +23,16 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {DialogModule} from 'primeng/dialog';
 import {ButtonModule} from 'primeng/button';
-import {DropdownModule} from 'primeng/dropdown';
+
 import {ProgressBarModule} from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputMaskModule } from "primeng/inputmask";
 import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import {TooltipModule} from 'primeng/tooltip';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgxMaskModule } from 'ngx-mask';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -42,11 +44,15 @@ import {TooltipModule} from 'primeng/tooltip';
     HomeComponent,
     SearchComponent,
     MenuComponent,
-    ClienteEditComponent,  
+    ClienteEditComponent
+    
   ],
   exports:[
       HomeComponent,
   ],
+  entryComponents: [
+    ClienteListComponent
+],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -67,10 +73,13 @@ import {TooltipModule} from 'primeng/tooltip';
 		ToastModule,
     InputTextModule,
     ProgressBarModule,
-    InputMaskModule,
     InputNumberModule,
     InputTextareaModule,
-    TooltipModule
+    TooltipModule,
+    ModalModule.forRoot(),
+    NgxMaskModule.forRoot(),
+    DynamicDialogModule,
+
   ]
 })
 export class HomeModule { }

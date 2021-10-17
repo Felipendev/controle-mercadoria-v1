@@ -1,30 +1,105 @@
-<form class="p-fluid" (ngSubmit)="criaCliente()" novalidate [formGroup]="form">
-    <div class="grupo1">
-        <label for="firstname1">Nome</label>
-        <input id="firstname1" type="text" pInputText>
+<app-header></app-header>
+<div class="container p-2">
+  <div class="flex-container">
+    <div class="float-left">
+      <h4>Produtos</h4>
     </div>
-    <div class="grupo1">
-        <label for="lastname1">Sobrenome</label>
-        <input id="lastname1" type="text" pInputText>
+    <div class="btns-header">
+      <button type="button" (click)="paginaInicial()" class="p-button-info" pButton icon="pi pi-info-circle"
+        label="Voltar"></button>
+      {{ '' }}
     </div>
-    <div class="grupo">
-        <label for="inputnumber">Código</label>
-        <p-inputNumber inputId="inputnumber" [(ngModel)]="value3"></p-inputNumber>
+  </div>
+  <form class="p-fluid form-group" [formGroup]="form" (ngSubmit)="editaCliente()">
+
+    <div class="grupo1 form-group">
+      <label for="firstname1">Nome</label>
+      <input class="form-group" name="nome" formControlName="nome" type="text" pInputText required #nome
+        [ngClass]="{'is-invalid': submitted && hasError('nome')}">
+      <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['required']">
+        O nome precisa ser preenchido
+      </small>
+      <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['minlength']">
+        O nome precisa ter no mínino {{ hasError('nome')!['minlength'].requiredLength }} caracteres.
+      </small>
+      <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['maxlength']">
+        O nome deve ter no máximo {{ hasError('nome')!['maxlength'].requiredLength }} caracteres.
+      </small>
     </div>
-    <div class="grupo">
-        <label for="inputmask">Data Recebimento</label>
-        <p-inputMask inputId="inputmask" mask="99/99/9999" [(ngModel)]="value4"></p-inputMask>
+
+    <div class="grupo1 form-group">
+      <label for="lastname1">Sobrenome</label>
+      <input class="form-group" name="sobrenome" ngModel type="text" pInputText
+        formControlName="sobrenome" required #sobrenome [ngClass]="{'is-invalid': submitted && hasError('sobrenome')}">
+      <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['required']">
+        O sobrenome precisa ser preenchido
+      </small>
+      <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['minlength']">
+        O sobrenome precisa ter no mínino {{ hasError('sobrenome')!['minlength'].requiredLength }} caracteres.
+      </small>
+      <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['maxlength']">
+        O sobrenome deve ter no máximo {{ hasError('sobrenome')!['maxlength'].requiredLength }} caracteres.
+      </small>
     </div>
-    <div class="grupo">
-        <label for="inputmask">Contato</label>
-        <p-inputMask inputId="inputnumber" mask="(99) 99999-9999" [(ngModel)]="value5"></p-inputMask>
+
+    <div class="grupo form-group">
+      <label for="inputnumber">Código</label>
+      <input class="form-control form-control" type="text" formControlName="codigo" name="codigo"
+        placeholder="0000" required maxlength="5" [ngClass]="{'is-invalid': submitted && hasError('codigo')}">
+      <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['required']">
+        O codigo precisa ser preenchido
+      </small>
+      <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['minlength']">
+        O codigo precisa ter no mínino {{ hasError('codigo')!['minlength'].requiredLength }} caracteres.
+      </small>
+      <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['maxlength']">
+        O codigo deve ter no máximo {{ hasError('codigo')!['maxlength'].requiredLength }} caracteres.
+      </small>
     </div>
-    <div class="grupo">
-        <label for="inputnumber">Status</label>
-        <p-dropdown [options]="status" [(ngModel)]="status" optionLabel="name"></p-dropdown>
+
+    <div class="grupo form-group">       
+      <label for="dataRecebimento">Data Recebimento</label>
+      <input class="form-control" type="date" formControlName="dataRecebimento"  name="dataRecebimento" placeholder="00/00/0000" #dataRecebimento
+        required [ngClass]="{'is-invalid': submitted && hasError('dataRecebimento')}">
+        <small class="invalid-feedback" *ngIf="hasError('dataRecebimento') && hasError('dataRecebimento')!['required']">
+              A data precisa ser preenchida
+        </small>
     </div>
-    <button type="submit" class="btn btn-outline-primary mt-2 mr-2">Atualizar</button>
-    <div class="buttons ">
-        <button type="button" class="btn btn-outline-warning mt-2">Limpar</button>
+
+    <div class="grupo form-group">
+      <label for="dataDeEntrega">Data Entrega</label>
+      <input class="form-control" type="date" formControlName="dataDeEntrega" name="dataDeEntrega"
+        placeholder="00/00/0000" #dataDeEntrega >
     </div>
-</form>
+
+    <div class="grupo form-group">       
+      <label for="contato">Contato</label>
+      <input class="form-control"  type="tel" formControlName="contato" name="contato"
+            placeholder="(00) 00000-0000" required [ngClass]="{'is-invalid': submitted && hasError('contato')}"
+            mask="(00) 00000-0000">
+      <small class="invalid-feedback" *ngIf="hasError('contato') && hasError('contato')!['required']">
+          O contato precisa ser preenchido
+        </small>
+        <small class="invalid-feedback" *ngIf="hasError('contato') && hasError('contato')!['minlength']">
+          O contato precisa ter no mínino {{ hasError('contato')!['minlength'].requiredLength }} caracteres.
+        </small>
+  </div>
+
+  <div class="input-group mt-2">
+    <div class="input-group-prepend" >
+      <label class="input-group-text" for="inputGroupSelect01">Status</label>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01" formControlName="statusProduto" name="statusProduto">
+      <option value="RECEBIDO">RECEBIDO</option>
+      <option value="ENTREGUE">ENTREGUE</option>
+      <option value="EXCLUIDO">EXCLUIDO</option>
+    </select>
+  </div>
+    <div class="buttons">
+      <button type="submit" class="btn btn-outline-primary mt-2 mr-2">Atualizar</button>
+      <button type="button" class="btn btn-outline-warning mt-2" (click)="paginaInicial()">Cancelar</button>
+    </div>
+  </form>
+</div>
+
+<p-toast [style]="{marginTop: '0px'}"></p-toast>

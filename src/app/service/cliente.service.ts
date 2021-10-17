@@ -24,7 +24,7 @@ export class ClienteService {
   getClientes(){
     return this.http.get<Cliente[]>( this.API + "/listAll")
       .pipe(
-        delay(2000),
+        delay(1000),
         tap(console.log)
       )
   }
