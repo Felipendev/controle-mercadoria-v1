@@ -1,15 +1,29 @@
 .grupo1 {
-    width: 48.6%;
+    width: 45%;
     margin-right: 1rem;
     display: inline-block;
 }
 
 
 .grupo {
-    width: 32%;
+    width: 18%;
     margin-right: 1rem;
     display: inline-block;
 }
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.btns-header {
+  justify-content: flex-end;
+
+}
+
+
 
 @media (max-width: 1180px) {
     .grupo1, .grupo {

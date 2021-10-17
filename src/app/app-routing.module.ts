@@ -6,6 +6,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClienteResolverGuard } from './guards/cliente-resolver.guard';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { MenuComponent } from './views/home/menu/menu.component';
+import { SearchComponent } from './views/home/search/search.component';
+import { ClienteEditComponent } from './views/home/cliente-edit/cliente-edit.component';
 
 
 const routes: Routes = [
@@ -15,22 +18,24 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'homePage',
-    component: HomeComponent
-  },
-  {
-    path: 'add',
-    component: ClienteFormComponent
-  },
-  { 
-    path: 'novo', 
+    path: 'produtos',
     component: HomeComponent,
-  resolve: {
-    cliente: ClienteResolverGuard
-  }},
+    resolve: {
+      cliente: ClienteResolverGuard
+    }},
+  {
+    path: 'search',
+    component: SearchComponent,
+    resolve: {
+      cliente: ClienteResolverGuard
+    }},
+  {
+    path: 'menu',
+    component: MenuComponent
+  },
   { 
-    path: 'editar/:id', 
-    component: HomeComponent ,
+    path: 'produtos/editar/:id', 
+    component: ClienteEditComponent,
     resolve: {
       cliente: ClienteResolverGuard
     }},

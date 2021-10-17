@@ -1,84 +1,117 @@
-<div class="ui-g">
-    <h5>Produtos</h5>
-    <p-table #dt1 [value]="clientes$" selectionMode="single" 
-        [(selection)]="clienteSelecionado" dataKey="id" styleClass="p-datatable-clientes" [responsive]="true"
-        [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
-        <ng-template pTemplate="header">
-            <tr class="bg-primary">
-                <th pSortableColumn="id">#<p-sortIcon field="id"></p-sortIcon></th>
-                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
-                <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon></th>
-                <th pSortableColumn="dataRecebimento">Data Recebimento <p-sortIcon field="dataRecebimento"></p-sortIcon></th>
-                <th pSortableColumn="dataDeEntrega">Data Entrega <p-sortIcon field="dataDeEntrega"></p-sortIcon></th>
-                <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon></th>
-                <th pSortableColumn="statusProduto">Status <p-sortIcon field="statusProduto"></p-sortIcon></th>
-            </tr>
-            <tr>
-                <th>
-                    
-                </th>            
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($any($event.target)?.value, 'nome', 'contains')"
-                    [value]="$any(dt1.filters['nome'])?.value" placeholder="Busca por nome" class="p-column-filter">
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($any($event.target)?.value, 'sobrenome', 'contains')"  
-                    [value]="$any(dt1.filters['sobrenome'])?.value" placeholder="Busca pelo sobrenome" class="p-column-filter">
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($any($event.target)?.value, 'dataRecebimento', 'contains')"  
-                    [value]="$any(dt1.filters['dataRecebimento'])?.value" placeholder="Busca pela data de recebimento" class="p-column-filter">
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($any($event.target)?.value, 'dataDeEntrega', 'contains')"  
-                    [value]="$any(dt1.filters['dataDeEntrega'])?.value" placeholder="Data de entrega" class="p-column-filter">
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($any($event.target)?.value, 'codigo', 'contains')"  
-                    [value]="$any(dt1.filters['codigo'])?.value" placeholder="Busca pelo código" class="p-column-filter">
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($any($event.target)?.value, 'statusProduto', 'contains')"  
-                    [value]="$any(dt1.filters['statusProduto'])?.value" placeholder="Busca pelo status" class="p-column-filter">
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-cliente>
-            <tr [pSelectableRow]="cliente">
-                <td>
-                    <span class="p-column-title">Id</span>
-                    {{cliente.id}}
-                </td>
-                <td>
-                    <span class="p-column-title">Nome</span>
-                    {{cliente.nome}}
-                </td>
-                <td>
-                    <span class="p-column-title">Sobrenome</span>
-                    <span class="image-text">{{cliente.sobrenome}}</span>
-                </td>
-                <td>
-                    <span class="p-column-title">Data Recebimento</span>
-                    <span class="image-text">{{cliente.dataRecebimento | date: 'dd/MM/yyyy'}}</span>
-                </td>
-                <td>
-                    <span class="p-column-title">Data Entrega</span>
-                    <span class="image-text">{{cliente.dataDeEntrega | date: 'dd/MM/yyyy'}}</span>
-                </td>
-                <td>
-                    <span class="p-column-title">Código</span>
-                    <span class="image-text">{{cliente.codigo}}</span>
-                </td>
-                <td>
-                    <span class="p-column-title">statusProduto</span>
-                    <span [class]="'customer-badge statusProduto-' + cliente.statusProduto">{{cliente.statusProduto}}</span>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="4">Buscando produtos...</td>
-            </tr>
-        </ng-template>
-    </p-table>
+<app-header></app-header>
+<div class="card p-2">
+    <div class="flex-container">
+        <div class="float-left">
+            <h4>Produtos</h4>
+        </div>
+        <div class="btns-header">
+            <button type="button" (click)="paginaInicial()" class="p-button-info" pButton icon="pi pi-info-circle"
+              label="Pagina Inicial"></button>
+            {{ '' }}
+          </div>
+    </div>
+    <div class="ui-g">
+        <p-table #dt1 [value]="clientes$" selectionMode="single" [(selection)]="clienteSelecionado" dataKey="id"
+            styleClass="p-datatable-clientes" [responsive]="true" [rows]="10" [paginator]="true" stateStorage="session"
+            stateKey="statedemo-session">
+            <ng-template pTemplate="header">
+                <tr class="bg-primary">
+                    <th pSortableColumn="id">#<p-sortIcon field="id"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="dataRecebimento">Data Recebimento <p-sortIcon field="dataRecebimento">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="dataDeEntrega">Data Entrega <p-sortIcon field="dataDeEntrega"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="statusProduto">Status <p-sortIcon field="statusProduto"></p-sortIcon>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        <input pInputText type="text"
+                            (input)="dt1.filter($any($event.target)?.value, 'nome', 'contains')"
+                            [value]="$any(dt1.filters['nome'])?.value" placeholder="Busca por nome"
+                            class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text"
+                            (input)="dt1.filter($any($event.target)?.value, 'sobrenome', 'contains')"
+                            [value]="$any(dt1.filters['sobrenome'])?.value" placeholder="Busca pelo sobrenome"
+                            class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text"
+                            (input)="dt1.filter($any($event.target)?.value, 'dataRecebimento', 'contains')"
+                            [value]="$any(dt1.filters['dataRecebimento'])?.value"
+                            placeholder="Busca pela data de recebimento" class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text"
+                            (input)="dt1.filter($any($event.target)?.value, 'dataDeEntrega', 'contains')"
+                            [value]="$any(dt1.filters['dataDeEntrega'])?.value" placeholder="Data de entrega"
+                            class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text"
+                            (input)="dt1.filter($any($event.target)?.value, 'codigo', 'contains')"
+                            [value]="$any(dt1.filters['codigo'])?.value" placeholder="Busca pelo código"
+                            class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text"
+                            (input)="dt1.filter($any($event.target)?.value, 'statusProduto', 'contains')"
+                            [value]="$any(dt1.filters['statusProduto'])?.value" placeholder="Busca pelo status"
+                            class="p-column-filter">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cliente>
+                <tr [pSelectableRow]="cliente">
+                    <td>
+                        <span class="p-column-title">Id</span>
+                        {{cliente.id}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Nome</span>
+                        {{cliente.nome}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Sobrenome</span>
+                        <span class="image-text">{{cliente.sobrenome}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Data Recebimento</span>
+                        <span class="image-text">{{cliente.dataRecebimento | date: 'dd/MM/yyyy'}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Data Entrega</span>
+                        <span class="image-text">{{cliente.dataDeEntrega | date: 'dd/MM/yyyy'}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">Código</span>
+                        <span class="image-text">{{cliente.codigo}}</span>
+                    </td>
+                    <td>
+                        <span class="p-column-title">statusProduto</span>
+                        <span
+                            [class]="'customer-badge statusProduto-' + cliente.statusProduto">{{cliente.statusProduto}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="4">Buscando produtos...</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
