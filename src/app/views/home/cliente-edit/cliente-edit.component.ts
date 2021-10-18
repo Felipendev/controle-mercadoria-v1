@@ -1,13 +1,14 @@
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { StatusProduto } from 'src/app/model/status-produto.enum';
-import { ClienteService } from 'src/app/service/cliente.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { empty, Subject, Observable } from 'rxjs';
-import { Cliente } from 'src/app/model/cliente.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import * as moment from 'moment';
+
+import { ClienteService } from 'src/app/service/cliente.service';
+import { Cliente } from 'src/app/model/cliente.model';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 interface Status {
   name: string
@@ -38,7 +39,8 @@ export class ClienteEditComponent implements OnInit {
     private service: ClienteService,
     private router: Router,
     private route: ActivatedRoute,
-    private messageService: MessageService) { 
+    private messageService: MessageService,
+    private location: Location) { 
     this.status = [
       {name: 'RECEBIDO' },
       {name: 'ENTREGUE'},
@@ -98,8 +100,13 @@ export class ClienteEditComponent implements OnInit {
       if(this.form.value.id) {
         this.service.update(this.form.value).subscribe(
           success => {
-            this.messageService.add({severity:'success', summary:'Tudo certo!', detail:'Produto atualizado com sucesso!'}),
-            this.paginaInicial();
+            this.messageService.add({severity:'success', summary:'Tudo certo!', detail:'Produto atualizado com sucesso!'});
+            setTimeout(function(){ 
+
+              window.location.href = "/produtos";
+        
+        }, 500);
+            
           },
           error => this.messageService.add({severity:'error', summary:'Rejected', detail:'Error ao atualizar produto, tente novamente!'}),
           () => console.log('update completo')

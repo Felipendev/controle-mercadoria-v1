@@ -75,17 +75,16 @@
             O contato precisa ter no mínino {{ hasError('contato')!['minlength'].requiredLength }} caracteres.
           </small>
     </div>
-    <div class="input-group mt-3">
-      <div class="input-group-prepend" formControlName="statusProduto" name="statusProduto">
+    <div class="input-group mt-2">
+      <div class="input-group-prepend" >
         <label class="input-group-text" for="inputGroupSelect01">Status</label>
       </div>
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>RECEBIDO</option>
-        <option value="2">ENTREGUE</option>
-        <option value="3">DELETADO</option>
+      <select class="custom-select" id="inputGroupSelect01" formControlName="statusProduto" name="statusProduto">
+        <option value="RECEBIDO">RECEBIDO</option>
+        <option value="ENTREGUE">ENTREGUE</option>
+        <option value="EXCLUIDO">EXCLUIDO</option>
       </select>
     </div>
-
     <button type="submit" class="btn btn-outline-primary m-2">Adicionar</button>
     <button type="button" class="btn btn-outline-warning m-2"  (click)="cancelar()">Limpar</button>
 </form>
