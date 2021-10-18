@@ -16,6 +16,6 @@ app.get('/*', (req, res) => {
     res.sendFile(`${outputPath}/index.html`);
 });
 // ouvir a porta que o Heroku disponibilizar
-app.listen(PORT, () => {
-    console.log('Servidor iniciado na porta ' + PORT);
-});
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server rodando na port %d in %s mode", this.address().port, app.settings.env);
+  });
