@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, tap, take } from 'rxjs/operators';
 import { Cliente } from '../model/cliente.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
 
-  API = "http://localhost:8080/api/v1/cliente";
+ API = environment.apiUrl;
 
 
   httpOptions = {

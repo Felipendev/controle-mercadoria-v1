@@ -56,7 +56,7 @@
                 </td>
                 <td>
                     <span class="p-column-title">statusProduto</span>
-                    <span class="customer-badge status-recebido" href="javascript:;"
+                    <span class="customer-badge status-{{ type }}" href="javascript:;"
                         [pTooltip]="cliente.status ? 'DELETADO' : 'ENTREGUE' "
                         tooltipPosition="top">{{cliente.statusProduto }}</span>
                 </td>
@@ -64,7 +64,7 @@
                     <span class="float-right">
                         <button class="btn btn-outline-warning mb-1 btn-sm" (click)="onEdit(cliente.id)">Atualizar</button>
                         {{ '' }}
-                        <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(cliente)">Remover</button>
+                        <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(cliente.id)">Remover</button>
                     </span>
                 </td>
             </tr>
