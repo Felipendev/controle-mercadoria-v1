@@ -133,10 +133,6 @@ export class ClienteEditComponent implements OnInit {
 
   handleError() {
     this.messageService.add({severity:'error', summary:'Rejected', detail:'Erro ao carregar produtos. Tente novamente mais tarde'});
-
-    // this.bsModalRef = this.modalService.show(AlertModalComponent);
-    // this.bsModalRef.content.type = 'danger';
-    // this.bsModalRef.content.message = 'danger';
   }
 
   paginaInicial(){

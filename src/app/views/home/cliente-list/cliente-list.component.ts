@@ -1,5 +1,6 @@
+import { catchError } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/model/cliente.model';
 import { ClienteService } from 'src/app/service/cliente.service';
 import {DialogService} from 'primeng/dynamicdialog';
@@ -14,7 +15,7 @@ import {ConfirmationService, ConfirmEventType, MessageService} from 'primeng/api
 })
 export class ClienteListComponent implements OnInit {
 
-  
+  @Input() type = "recebido";
   clientes$!: Cliente[];
   clienteSelecionado!: Cliente;
   position!: string;
@@ -75,39 +76,15 @@ export class ClienteListComponent implements OnInit {
   });
   }
 
-  // confirmPosition(position: string) {
-  //   this.position = position;
 
-  //   this.confirmationService.confirm({
-  //       message: 'Você quer excluir esse produto?',
-  //       header: 'Confirmação de exclusão',
-  //       icon: 'pi pi-info-circle',
-  //       accept: () => {
-  //         this.clienteService.remove(this.clienteSelecionado.id).subscribe;
-  //           this.messageService.add({severity:'info', summary:'Confirmado', detail:'Produto excluidoooooo'});
-  //           setTimeout(function(){ 
 
-  //             window.location.href = "/produtos";
-        
-  //       }, 500);
-  //       },
-  //       reject: (type: any) => {
-  //           switch(type) {
-  //               case ConfirmEventType.REJECT:
-  //                   this.messageService.add({severity:'error', summary:'Rejeitado', detail:'Voce rejeitou'});
-  //               break;
-  //               case ConfirmEventType.CANCEL:
-  //                   this.messageService.add({severity:'warn', summary:'Cancelado', detail:'Você cancelou'});
-  //               break;
-  //           }
-  //       },
-  //       key: "positionDialog"
-  //   });
-//}
-
-mudaStatus(cliente: Cliente) {
+  mudaStatus(cliente: Cliente) {
   this.clienteSelecionado = cliente;
   
-}
+  }
+
+  handleError() {
+    this.messageService.add({severity:'error', summary:'Falha', detail:'Falha ao buscar produtos. Tente novamente mais tarde'});
+  }
 
 }
