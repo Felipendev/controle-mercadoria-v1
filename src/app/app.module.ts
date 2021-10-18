@@ -11,6 +11,7 @@ import { HomeModule } from './views/home/home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './views/login/login.component';
 import { ToastModule } from 'primeng/toast';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { ToastModule } from 'primeng/toast';
     FormsModule,
     BrowserAnimationsModule,
     ModalModule.forRoot(),
-    ToastModule,    
+    ToastModule,
+    ConfirmDialogModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -52,12 +52,12 @@
                         <input pInputText type="text"
                             (input)="dt1.filter($any($event.target)?.value, 'dataRecebimento', 'contains')"
                             [value]="$any(dt1.filters['dataRecebimento'])?.value"
-                            placeholder="Busca pela data de recebimento" class="p-column-filter">
+                            placeholder="Ex: ano-mês-dia" class="p-column-filter">
                     </th>
                     <th>
                         <input pInputText type="text"
                             (input)="dt1.filter($any($event.target)?.value, 'dataDeEntrega', 'contains')"
-                            [value]="$any(dt1.filters['dataDeEntrega'])?.value" placeholder="Data de entrega"
+                            [value]="$any(dt1.filters['dataDeEntrega'])?.value" placeholder="Ex: ano-mês-dia"
                             class="p-column-filter">
                     </th>
                     <th>

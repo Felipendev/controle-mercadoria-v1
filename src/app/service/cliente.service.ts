@@ -40,4 +40,8 @@ export class ClienteService {
   update(cliente: Cliente){
     return this.http.put<Cliente>(`${this.API}/${cliente.id}`, cliente).pipe(take(1));;
   }
+
+  remove(id: number) {
+    return this.http.delete(`${this.API}/${id}`).pipe(take(1));
+  }
 }

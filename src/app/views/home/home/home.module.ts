@@ -33,6 +33,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxMaskModule } from 'ngx-mask';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 
@@ -79,6 +80,7 @@ import { DropdownModule } from 'primeng/dropdown';
     ModalModule.forRoot(),
     NgxMaskModule.forRoot(),
     DynamicDialogModule,
+    ConfirmDialogModule
 
   ]
 })
