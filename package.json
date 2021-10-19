@@ -13,6 +13,7 @@
   "dependencies": {
     "@angular/animations": "^12.2.9",
     "@angular/cdk": "^12.2.9",
+    "@angular/cli": "^12.2.10",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
     "@angular/core": "~12.2.0",
@@ -30,9 +31,10 @@
     "primeicons": "^4.1.0",
     "primeng": "^12.2.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.2",
-    "@angular/cli": "~12.2.2",
     "@angular/compiler-cli": "~12.2.0",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
@@ -44,13 +46,9 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.3.5"
   },
-  "devDependencies": {
-  },
-
   "engines": {
     "node": "14.17.6",
     "npm": "7.19.1",
     "yarn": "1.22.10"
-
   }
 }
