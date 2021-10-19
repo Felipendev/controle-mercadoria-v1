@@ -1,16 +1,13 @@
 {
   "name": "controle-mercadoria-v1",
   "version": "0.0.0",
-  "engines": {
-    "node": "14.x"
-  },
   "scripts": {
     "ng": "ng",
-    "start": "node src/server.js",
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "ng build --prod"
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -33,9 +30,7 @@
     "primeicons": "^4.1.0",
     "primeng": "^12.2.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
-  },
-  "devDependencies": {
+    "zone.js": "~0.11.4",
     "@angular-devkit/build-angular": "~12.2.2",
     "@angular/cli": "~12.2.2",
     "@angular/compiler-cli": "~12.2.0",
@@ -48,5 +43,14 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.3.5"
+  },
+  "devDependencies": {
+  },
+
+  "engines": {
+    "node": "14.17.6",
+    "npm": "7.19.1",
+    "yarn": "1.22.10"
+
   }
 }
