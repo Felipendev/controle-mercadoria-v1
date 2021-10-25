@@ -133,33 +133,7 @@ criaCliente(){
       );
     }
   }  
-  // this.clientes$ = [...this.clientes$];
-  // this.productDialog = false;
-}
-
-saveProduct() {
-  this.submitted = true;
-
-  if (this.cliente.nome.trim()) {
-      if (this.cliente.id) {
-          this.clientes$[this.findIndexById(this.cliente.id)] = this.cliente;                
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-      }
-      this.clientes$ = [...this.clientes$];
-      this.productDialog = false;
-  }
-}
-
-findIndexById(id: number){
-  let index = -1;
-  for (let i = 0; i < this.clientes$.length; i++) {
-      if (this.clientes$[i].id === id) {
-          index = i;
-          break;
-      }
-  }
-
-  return index;
+  this.clientes$ = [...this.clientes$];
 }
 
 cancelar(){
