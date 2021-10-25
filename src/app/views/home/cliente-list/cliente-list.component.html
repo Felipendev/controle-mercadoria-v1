@@ -1,39 +1,43 @@
-<div class="container p-2">
+<div class="card p-2">
+    <p-toolbar styleClass="p-mb-4 p-toolbar p-component">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-element p-button-success mr-2 p-button mt-2"(click)="openNew()"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+        <button type="button" pButton class="p-button-info mr-2 mt-2" [routerLink]="['/search']">Buscar</button>
+        <button type="button" pButton class="p-button-warning mt-2" (click)="onRefresh()">Atualizar</button>
+    </ng-template>
+</p-toolbar>    
     <div class="flex-container">
         <div class="float-left">
             <h4>Produtos</h4>
         </div>
-        <div class="btns-header">
-            <button type="button" (click)="show()" class="p-button-info" pButton icon="pi pi-info-circle" label="Novo Produto"></button>
-            {{ '' }}
-            <button type="button" pButton class="p-button-info" [routerLink]="['/search']">Buscar Produto</button>
-            {{ '' }}
-            <button type="button" pButton class="p-button-warning" (click)="onRefresh()">Atualizar</button>               
-        </div>
     </div>
-    <p-table #dt1 [value]="clientes$" selectionMode="single" [(selection)]="clienteSelecionado" dataKey="id"
-        styleClass="p-datatable-clientes" [rows]="10" [paginator]="true" stateStorage="session"
+    <p-table #dt [value]="clientes$" selectionMode="single" [(selection)]="clienteSelecionado" dataKey="id"
+        styleClass="p-datatable-clientes" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Visualizando {first} a {last} de {totalRecords} produtos" [showCurrentPageReport]="true" stateStorage="session"
         stateKey="statedemo-session" [responsive]="true">
         <ng-template pTemplate="header">
             <tr class="">
-                <th pSortableColumn="id">#<p-sortIcon field="id"></p-sortIcon>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
-                </th>
-                <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon>
-                </th>
-                <th pSortableColumn="dataRecebimento">Data Recebimento <p-sortIcon field="dataRecebimento">
-                    </p-sortIcon>
-                </th>
-                <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon>
-                </th>
-                <th pSortableColumn="statusProduto">Status <p-sortIcon field="statusProduto"></p-sortIcon>
-                </th>
+                <th pSortableColumn="id">#<p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon></th>
+                <th pSortableColumn="dataRecebimento">Data Recebimento <p-sortIcon field="dataRecebimento"></p-sortIcon></th>
+                <th pSortableColumn="codigo">Contato <p-sortIcon field="contato"></p-sortIcon></th>
+                <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon></th>
+                <th pSortableColumn="statusProduto">Status <p-sortIcon field="statusProduto"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-cliente>
             <tr [pSelectableRow]="cliente">
+                <td>
+                    <p-tableCheckbox [value]="cliente"></p-tableCheckbox>
+                </td>
                 <td>
                     <span class="p-column-title">Id</span>
                     {{cliente.id}}
@@ -48,7 +52,11 @@
                 </td>
                 <td>
                     <span class="p-column-title">Data Recebimento</span>
-                    <span class="image-text">{{cliente.dataRecebimento | date:'dd/MM/yyyy':'UTC'}}</span>
+                    <span class="image-text">{{cliente.dataRecebimento | date: 'dd/MM/yyyy'}}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Contato</span>
+                    <span class="image-text">{{cliente.contato | mask: '(00) 00000-0000'}}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Código</span>
@@ -74,8 +82,113 @@
                 <td colspan="4">Buscando produtos...</td>
             </tr>
         </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Há um total de {{clientes$ ? clientes$.length : 0 }} produtos.
+            </div>
+        </ng-template>
     </p-table>
 </div>
-
-<p-confirmDialog [style]="{width: '50vw'}" [position]="position" [baseZIndex]="10000" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!-- Modal -->
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Novo Produto" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+    <form (ngSubmit)="criaCliente()" class="p-fluid form-group" novalidate [formGroup]="form">
+    
+        <div class="grupo1 form-group">
+            <label for="nome">Nome</label>
+            <input 
+                class="form-control" name="nome" formControlName="nome" type="text" required #nome
+                [ngClass]="{'is-invalid': submitted && hasError('nome')}"
+            >
+            <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['required']">
+                O nome precisa ser preenchido
+              </small>
+              <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['minlength']">
+                O nome precisa ter no mínino {{ hasError('nome')!['minlength'].requiredLength }} caracteres.
+              </small>
+              <small class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')!['maxlength']">
+                O nome deve ter no máximo {{ hasError('nome')!['maxlength'].requiredLength }} caracteres.
+              </small> 
+        </div>
+    
+        <div class="grupo1 form-group">
+            <label for="sobrenome">Sobrenome</label>
+            <input 
+                class="form-control" name="sobrenome" type="text"  formControlName="sobrenome" required
+                [ngClass]="{'is-invalid': submitted && hasError('sobrenome')}"
+            > 
+            <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['required']">
+                O sobrenome precisa ser preenchido
+              </small>
+              <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['minlength']">
+                O sobrenome precisa ter no mínino {{ hasError('sobrenome')!['minlength'].requiredLength }} caracteres.
+              </small>
+              <small class="invalid-feedback" *ngIf="hasError('sobrenome') && hasError('sobrenome')!['maxlength']">
+                O sobrenome deve ter no máximo {{ hasError('sobrenome')!['maxlength'].requiredLength }} caracteres.
+              </small>
+        </div>
+        
+        <div class="grupo form-group">        
+            <label for="codigo">Código</label>  
+            <input 
+                class="form-control" type="text" formControlName="codigo" name="codigo"
+                placeholder="0000" required maxlength="5" 
+                [ngClass]="{'is-invalid': submitted && hasError('codigo')}"
+            >
+          <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['required']">
+            O codigo precisa ser preenchido
+          </small>
+          <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['minlength']">
+            O codigo precisa ter no mínino {{ hasError('codigo')!['minlength'].requiredLength }} caracteres.
+          </small>
+          <small class="invalid-feedback" *ngIf="hasError('codigo') && hasError('codigo')!['maxlength']">
+            O codigo deve ter no máximo {{ hasError('codigo')!['maxlength'].requiredLength }} caracteres.
+          </small>
+        </div>
+    
+        <div class="grupo form-group">       
+          <label for="dataRecebimento">Data:</label>
+          <input class="form-control" type="date"
+            formControlName="dataRecebimento" name="dataRecebimento" placeholder="00/00/0000" #dataRecebimento
+            required [ngClass]="{'is-invalid': submitted && hasError('dataRecebimento')}">
+            <small class="invalid-feedback" *ngIf="hasError('dataRecebimento') && hasError('dataRecebimento')!['required']">
+                  A data precisa ser preenchida
+            </small>
+        </div>
+    
+        <div class="grupo form-group">       
+            <label for="contato">Contato</label>
+            <input class="form-control form-control"  type="tel" formControlName="contato" name="contato"
+                  placeholder="(00) 00000-0000" required [ngClass]="{'is-invalid': submitted && hasError('contato')}"
+                  mask="(00) 00000-0000">
+            <small class="invalid-feedback" *ngIf="hasError('contato') && hasError('contato')!['required']">
+                O contato precisa ser preenchido
+            </small>
+            <small class="invalid-feedback" *ngIf="hasError('contato') && hasError('contato')!['minlength']">
+                O contato precisa ter no mínino {{ hasError('contato')!['minlength'].requiredLength }} caracteres.
+            </small>
+        </div>
+        <div class="input-group mt-2">
+          <div class="input-group-prepend" >
+            <label class="input-group-text" for="inputGroupSelect01">Status</label>
+          </div>
+          <select 
+                class="custom-select" id="inputGroupSelect01" 
+                formControlName="statusProduto" name="statusProduto"
+                required [ngClass]="{'is-invalid': submitted && hasError('statusProduto')}"
+          >
+            <option selected value="RECEBIDO">RECEBIDO</option>
+            <option value="ENTREGUE">ENTREGUE</option>
+            <option value="EXCLUIDO">EXCLUIDO</option>
+          </select>
+          <small class="invalid-feedback" *ngIf="hasError('statusProduto') && hasError('statusProduto')!['required']">
+            O status precisa ser preenchido
+        </small>
+        </div>
+        <button type="submit" class="btn btn-outline-primary m-2">Adicionar</button>
+        <button type="button" class="btn btn-outline-warning m-2"  (click)="cancelar()">Limpar</button>
+    </form>
+</ng-template>
+</p-dialog>
 <p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" [position]="position" [baseZIndex]="10000" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

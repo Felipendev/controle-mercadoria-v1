@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClienteListComponent } from './../cliente-list/cliente-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { HomeComponent } from './home.component';
-import { ClienteFormComponent } from '../cliente-form/cliente-form.component';
 import { SearchComponent } from '../search/search.component';
 import { ClienteEditComponent } from '../cliente-edit/cliente-edit.component';
 import { MenuComponent } from '../menu/menu.component';
@@ -23,7 +22,6 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {DialogModule} from 'primeng/dialog';
 import {ButtonModule} from 'primeng/button';
-
 import {ProgressBarModule} from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from "primeng/inputnumber";
@@ -34,13 +32,15 @@ import { NgxMaskModule } from 'ngx-mask';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {ToolbarModule} from 'primeng/toolbar';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    ClienteFormComponent,
     ClienteListComponent,
     HomeComponent,
     SearchComponent,
@@ -80,7 +80,10 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     ModalModule.forRoot(),
     NgxMaskModule.forRoot(),
     DynamicDialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MessagesModule,
+    MessageModule,
+    ToolbarModule
 
   ]
 })

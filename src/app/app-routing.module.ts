@@ -1,4 +1,3 @@
-import { ClienteFormComponent } from './views/home/cliente-form/cliente-form.component';
 import { LoginComponent } from './views/login/login.component';
 import { HomeComponent } from './views/home/home/home.component';
 

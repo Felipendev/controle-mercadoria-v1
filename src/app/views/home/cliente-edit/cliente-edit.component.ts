@@ -33,6 +33,8 @@ export class ClienteEditComponent implements OnInit {
   clientes$!: Observable<Cliente[]>;
   status!: Status[];
   selectedStatus!: Status;
+  productDialog!: boolean;
+  position!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -90,10 +92,6 @@ export class ClienteEditComponent implements OnInit {
 
   editaCliente(){
     this.submitted = true;
-    let dataRecebimento: moment.Moment = moment.utc(this.form.value.dataRecebimento).local();
-    this.form.value.dataRecebimento = dataRecebimento.format("YYYY-MM-DD");
-    let dataDeEntrega: moment.Moment = moment.utc(this.form.value.dataDeEntrega).local();
-    this.form.value.dataDeEntrega = dataDeEntrega.format("YYYY-MM-DD");
     if(this.form.valid) {
       console.log('submit');
       console.log(this.form.value)

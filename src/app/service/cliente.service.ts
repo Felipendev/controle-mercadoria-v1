@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class ClienteService {
 
- API = environment.apiUrl;
+  status: string[] = ['RECEBIDO', 'ENTREGUE', 'DELETADO'];
+  API = environment.apiUrl;
 
 
   httpOptions = {
