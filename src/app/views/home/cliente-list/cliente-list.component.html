@@ -24,19 +24,13 @@
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="id">#<p-sortIcon field="id"></p-sortIcon>
-                </th>
-                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
-                </th>
-                <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon>
-                </th>
-                <th pSortableColumn="dataRecebimento">Data Recebimento <p-sortIcon field="dataRecebimento">
-                    </p-sortIcon>
-                </th>
-                <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon>
-                </th>
-                <th pSortableColumn="statusProduto">Status <p-sortIcon field="statusProduto"></p-sortIcon>
-                </th>
+                <th pSortableColumn="id">#<p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon></th>
+                <th pSortableColumn="dataRecebimento">Data Recebimento <p-sortIcon field="dataRecebimento"></p-sortIcon></th>
+                <th pSortableColumn="codigo">Contato <p-sortIcon field="contato"></p-sortIcon></th>
+                <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon></th>
+                <th pSortableColumn="statusProduto">Status <p-sortIcon field="statusProduto"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
@@ -60,6 +54,10 @@
                 <td>
                     <span class="p-column-title">Data Recebimento</span>
                     <span class="image-text">{{cliente.dataRecebimento | date: 'dd/MM/yyyy'}}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Contato</span>
+                    <span class="image-text">{{cliente.contato | mask: '(00) 00000-0000'}}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Código</span>

@@ -66,6 +66,7 @@ export class ClienteEditComponent implements OnInit {
       sobrenome: [cliente.sobrenome],
       codigo: [cliente.codigo],
       dataRecebimento: [cliente.dataRecebimento],
+      dataDeEntrega: [cliente.dataDeEntrega],
       contato: [cliente.contato],
       statusProduto: [cliente.statusProduto]
     });
@@ -80,7 +81,7 @@ export class ClienteEditComponent implements OnInit {
       contato: cliente.contato,
       codigo: cliente.codigo,
       dataRecebimento: cliente.dataRecebimento,
-  
+      dataDeEntrega: cliente.dataDeEntrega,
       statusProduto: cliente.statusProduto
     })
   }

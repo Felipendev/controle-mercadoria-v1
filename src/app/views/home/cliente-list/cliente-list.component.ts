@@ -71,7 +71,7 @@ validarObrigatoriedade(input: FormControl) {
   hideDialog() {
     this.productDialog = false;
     this.submitted = false;
-    this. onRefresh();
+    this.onRefresh();
 }
 
   onRefresh() {
