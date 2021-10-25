@@ -5,9 +5,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/model/cliente.model';
 import { ClienteService } from 'src/app/service/cliente.service';
 import {DialogService} from 'primeng/dynamicdialog';
-import {ConfirmationService, ConfirmEventType, MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {Message} from 'primeng//api';
-import * as moment from 'moment';
 
 
 @Component({
@@ -27,6 +26,7 @@ export class ClienteListComponent implements OnInit {
   productDialog!: boolean;
   submitted!: boolean;
   form!: FormGroup;
+  error!:String;
 
   constructor(
     private clienteService: ClienteService,
@@ -38,8 +38,10 @@ export class ClienteListComponent implements OnInit {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.clienteService.getClientes().subscribe
-      (data => this.clientes$ = data);
+    this.clienteService.getClientes().subscribe((data) => {
+      this.clientes$ = data
+    }, (error) => {
+      this.messageService.add({severity:'error', summary:'Falha', detail:'Falha ao buscar produtos. Tente novamente mais tarde ou entre em contato com a equipe de desenvolvimento', life: 10000})});
 
     const cliente = this.route.snapshot.data['cliente'];
 

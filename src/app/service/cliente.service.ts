@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, tap, take } from 'rxjs/operators';
+import { take, catchError } from 'rxjs/operators';
+
 import { Cliente } from '../model/cliente.model';
 import { environment } from 'src/environments/environment';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +26,11 @@ export class ClienteService {
   ) { }
 
   getClientes(){
-    return this.http.get<Cliente[]>( this.API + "/listAll")
-      .pipe(
-        delay(1000),
-        tap(console.log)
-      )
+    return this.http.get<Cliente[]>( this.API + "/listAll").pipe(catchError(this.handleError));
+  }
+
+  handleError(error: any) {
+    return throwError(error.message || "Erro ao buscar produtos")
   }
 
   loadById(id: any) {
