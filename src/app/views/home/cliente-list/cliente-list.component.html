@@ -20,9 +20,6 @@
         stateKey="statedemo-session" [responsive]="true">
         <ng-template pTemplate="header">
             <tr class="">
-                <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
                 <th pSortableColumn="id">#<p-sortIcon field="id"></p-sortIcon></th>
                 <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
                 <th pSortableColumn="sobrenome">Sobrenome <p-sortIcon field="sobrenome"></p-sortIcon></th>
@@ -35,9 +32,6 @@
         </ng-template>
         <ng-template pTemplate="body" let-cliente>
             <tr [pSelectableRow]="cliente">
-                <td>
-                    <p-tableCheckbox [value]="cliente"></p-tableCheckbox>
-                </td>
                 <td>
                     <span class="p-column-title">Id</span>
                     {{cliente.id}}
